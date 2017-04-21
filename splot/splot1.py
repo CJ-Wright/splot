@@ -2,25 +2,22 @@
 import numpy as np
 import matplotlib.pyplot as plt
 plt.style.use('styles/mycopy.mplstyle')
+c = [color['color'] for color in list(plt.rcParams['axes.prop_cycle'])]
 
-class Splot:   
-    global groupColor, d1, d2, d
-    groupColor = [color['color'] for color in list(plt.rcParams['axes.prop_cycle'])]
+class Data:
+    def __init__(self, data, samplename='none',scan='scan',
+                 color= c[0], marker='+', line=''):
+        self.samplename = 'samplename'
+        self.scanname = self.samplename+'scan'
+        self.data = data
+        self.color = color
+        self.marker = marker
+        self.line = line
     
-#    d is the default use, if you don't have random data to visulize, 
-#    you can always load them to the d 
-    d = {'Name': '', 'Data': ([], []), 'Color': groupColor[0], 'marker': ' ',
-    'line': '-'}
-    d1 = {'Name': 'Ni', 'Data': ([], []), 'Color': groupColor[6],
-    'marker': '+' , 'line': ''}
-    d2 = {'Name': 'Zn', 'Data': ([], []), 'Color': groupColor[4], 'marker': '^',
-    'line': '--'}
-        
+class Splot:   
     def __init__(self, r = 1, c = 1):
         self.row, self.col = r, c
-        self.data = np.zeros( (self.row, self.col), object)
-        self.fig, self.ax = plt.subplots(self.row,  self.col, \
-                            sharex='col', sharey='row')
+        self.fig, self.ax = plt.subplots(self.row,  self.col, sharex='col', sharey='row')
         self.fig.subplots_adjust(wspace = 0.0, hspace = 0.0)
         if r == 1 and c == 1:
             self.ax = np.array([self.ax]).reshape(-1,1)    
@@ -29,30 +26,29 @@ class Splot:
         elif c == 1:
             self.ax = self.ax.reshape((r, 1))
          
-    def plotData(self, dat = d, x=1, y=1):
-#        self.addData(dat['Data'][0], dat['Data'][1], x, y)
-        Subplot(self.ax[x-1, y-1], dat)
-    def addData(self, r, q, x, y): 
-        self.data[x-1, y-1] = (r, q)
-        return self.data
+    def plotData(self, d, r = 1, c = 1, scal=1, offset=0, diff = False):
+        line = self.ax[r-1, c-1].plot( d.data[0], d.data[1]*scal + offset, \
+                                       marker = d.marker)
+        plt.setp(line, color = d.color) 
+        plt.setp(line, linestyle = d.line)
         
-    #Another method to change the plot ratio
-    def ratio(self, r1, c1, r2, c2):
-        pass
+#================================== Test ======================================
+x = np.linspace(-4, 4, 80)
+y = x**3
 
-# +++++++++++++++++++++++++++++++ Subplot Class +++++++++++++++++++++++++++++++ 
-class Subplot:
-    def __init__(self, axes, dat = d):
-        self.ax = axes
-        line = self.ax.plot(dat['Data'][0], dat['Data'][1], marker = dat['marker'])
-        plt.setp(line, color = dat['Color']) 
-        plt.setp(line, linestyle = dat['line'])    
-        
-    def scale(self, sx = 1, sy = 1): #scale the data by a fator of s
-        newDat = (self.dat['Data'][0]*sx, self.dat['Data'][1]*sy)
-        return newDat
-    
-    def offSet(self, ox = 0, oy = 0): 
-        newDat = (self.dat['Data'][0] + ox, self.dat['Data'][1] + oy)
-        return newDat
+x2 = np.linspace(-6, 6, 80)
+y2 = x2**2
 
+# data setup
+d300 = Data( (x, y), samplename ='Ni', scan = '300K', color = c[6])
+d500 = Data( (x2, y2), 'Ni', '500K')
+
+# plot axis setup
+H = Splot(3, 1)
+#H.1.1.diff = T
+
+# plot data setup
+H.plotData(d300, 1, 1)
+H.plotData(d500, 1, 1, scal = 0.5, offset = 0.2, diff = True)
+H.plotData(d300, 2, 1, scal = 0.6)
+plt.show()
