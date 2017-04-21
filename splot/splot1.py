@@ -37,7 +37,7 @@ class Splot:
         return self.data
         
     #Another method to change the plot ratio
-    def ratio(self, (r1, c1), (r2, c2)):
+    def ratio(self, r1, c1, r2, c2):
         pass
 
 # +++++++++++++++++++++++++++++++ Subplot Class +++++++++++++++++++++++++++++++ 
