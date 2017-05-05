@@ -2,8 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator 
 import itertools
-plt.style.use('../splot/styles/mycopy.mplstyle')
-#plt.style.use('../splot/styles/billinge.mplstyle')
+#plt.style.use('../splot/styles/mycopy.mplstyle')
+plt.style.use('../splot/styles/billinge.mplstyle')
 c = [color['color'] for color in list(plt.rcParams['axes.prop_cycle'])]
         
 def Data(data, samplename='none', scan='scan', color= c[0], marker='+', line='-'):

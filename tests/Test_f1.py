@@ -40,5 +40,5 @@ H.title("G(r) Plot", math = 'on')
 H.label(x = "hello", xunit = 'delta', y = 'world', yunit = 'epsilon', math = 'on')
 
 #Save figure:
-#H.save(name = "myfigure", form = "pdf")
+H.save(name = "myfigure", form = "pdf")
 plt.show()
