@@ -11,7 +11,7 @@ for i in range (11):
     r = np.loadtxt(lc, skiprows = 4, usecols=(0,))
     gtrunc = np.loadtxt(lc, skiprows = 4, usecols=(1,))
     
-    #Set up data to be plot: every curve is shiftted down by 5 units
+    #Set up data to be plot:
     G = Data((r, gtrunc),  samplename = "Gtrunc"+"_"+str(i*10), \
     scan = 'Data', color = c[i], marker = '')
     
@@ -19,4 +19,4 @@ for i in range (11):
     H.plotData(G, scal=1, offsetx = i*10, offsety = i*10,)
     
 #Title is default to be empty, lable is default: G v.s r 
-#H.title("G(r) Plot", math = "off")
+#H.title("G(r) Plot")
