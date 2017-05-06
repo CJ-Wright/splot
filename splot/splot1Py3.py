@@ -45,7 +45,7 @@ class Splot:
             self.legends[0].append(line)
             self.legends[1].append(d['scanname'])
         if diff == True:
-            self.diffC(r, c, offset = d['data'][1].min()-5) # Plot the diff 5 units below 
+            self.diffC(r, c, offset = d['data'][1].min()-15) # Plot the diff 15 units below 
         self.ticks()
         self.label()        
         self.title()
@@ -106,7 +106,7 @@ class Splot:
     def legendOut(self):    #??? where to place the legend on the plot?
         plt.legend(self.legends[0], self.legends[1], \
             loc='center left', bbox_to_anchor = (1, 0.85), borderaxespad=0, \
-            labelspacing= 1., prop={'size':8})
+            labelspacing= 1., prop={'size':8}, handlelength = 3)
     
     def save(self, name = "myplot", form = "pdf"):
         return self.fig.savefig(name+"."+form)
