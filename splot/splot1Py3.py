@@ -6,14 +6,18 @@ import itertools
 plt.style.use('../splot/styles/billinge.mplstyle')
 c = [color['color'] for color in list(plt.rcParams['axes.prop_cycle'])]
         
-def Data(data, samplename='none', scan='scan', color= c[0], marker='+', line='-'):
+def Data(data, samplename='none', scan='scan', color= c[0], marker=None, line=None):
     d = {}
     d['samplename'] = samplename
     d['scanname'] = samplename+scan
     d['data'] = data
     d['color'] = color
-    d['marker'] = marker
-    d['line'] = line
+    if marker != None: 
+        d['marker'] = None
+    else:
+        d['marker'] = marker   
+    if line != None: 
+        d['line'] = line
     return d
     
 class Splot: 

@@ -16,13 +16,15 @@ Gdiff2 = np.loadtxt("../data/examples/f1/10", skiprows=4, usecols=(2,))
 Gcalc2 = np.loadtxt("../data/examples/f1/10", skiprows=4, usecols=(3,))
 
 #Setup Data for the plot:
-g1 = Data( (r1, Gtrunc1), samplename ='G1', scan = 'Orginal', color = c[0], marker = '+')
-g1calc = Data( (r1, Gcalc1), samplename  = 'G1', scan = 'Calc', color = c[4], line='--', marker = "")
-g1diff = Data( (r1, Gdiff1-8), samplename = 'G1', scan = 'Diff', color = 'r', marker = "")
+#g1 = Data( (r1, Gtrunc1), samplename ='G1', scan = 'Orginal', color = c[0], marker = '+')
+g1 = Data( (r1, Gtrunc1), samplename ='G1', scan = 'Orginal', color = c[1])
+#g1calc = Data( (r1, Gcalc1), samplename  = 'G1', scan = 'Calc', color = c[4], line='--', marker = "")
+g1calc = Data( (r1, Gcalc1), samplename  = 'G1', scan = 'Calc', color = 'r')
+g1diff = Data( (r1, Gdiff1-8), samplename = 'G1', scan = 'Diff', color = c[0])
 
-g2 = Data( (r2, Gtrunc2), samplename ='G2', scan = 'Orginal', color = c[1], marker = "o")
-g2calc = Data( (r2, Gcalc2), samplename = 'G2', scan = 'Calc2', color = c[3], line='--', marker = "")
-g2diff = Data( (r2, Gdiff2-8), samplename = 'G2', scan = 'Diff', color = 'r', marker = "")
+g2 = Data( (r2, Gtrunc2), samplename ='G2', scan = 'Orginal', color = c[2])
+g2calc = Data( (r2, Gcalc2), samplename = 'G2', scan = 'Calc2', color = 'r')
+g2diff = Data( (r2, Gdiff2-8), samplename = 'G2', scan = 'Diff', color = c[0])
 
 # plot axis setup: here we have 2 rows x 1 col
 H = Splot(2,1)
@@ -41,4 +43,4 @@ H.title("G(r) Plot", math = "off")
 #H.label(x = "hello", xunit = 'delta', y = 'world', yunit = 'epsilon', math = 'on')
 
 #Save figure:
-#H.save(name = "myfigure", form = "pdf")
+H.save(name = "myfigure", form = "pdf")
