@@ -16,15 +16,15 @@ G2 = np.loadtxt(lc2, skiprows=27, usecols=(1,))
 g1 = Data( (r1, G1), samplename ='G1', scan = 'Data', color = c[6], marker = '')
 g2 = Data( (r2, G2), samplename ='G2', scan = 'Data', color = c[4], marker = '', line = "--")
 
-
 # plot axis setup: only a sinlge plot
 H = Splot()
 
 # plot data
 H.plotData(g1)    
-H.plotData(g2, diff = True)    
+H.plotData(g2)
+H.diffC() #Same as H.diffC(0,0) since there is only one plot
 
-#Add Title, label
+#Add Title (lable is default: G v.s r) 
 H.title("G(r) Plot", math = "off")
 
 #Save figure:
