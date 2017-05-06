@@ -45,7 +45,7 @@ class Splot:
             self.legends[0].append(line)
             self.legends[1].append(d['scanname'])
         if diff == True:
-            self.diffC(r, c, offset = d['data'][1].min()-15) # Plot the diff 15 units below 
+            self.diffC(r, c) # Plot the diff 15 units below 
         self.ticks()
         self.label()        
         self.title()
@@ -57,7 +57,7 @@ class Splot:
         self.subD[r, c][1].append( d['data'][1] )   
         return self.subD
     
-    def diffC(self, r=0, c=0, scal=1, offset=0): #Not sure if you want to scale / offset this curve
+    def diffC(self, r=0, c=0, scal=1, offset = 0): #Not sure if you want to scale / offset this curve
         if len (self.subD[r, c][1]) == 0:
             print ("subplot", (r,c), "hasn't been load with any data")
             return
@@ -69,6 +69,8 @@ class Splot:
             return
         else:
             diffy = self.subD[r,c][1][0] - self.subD[r, c][1][1]
+        if offset == 0: # Defualt: Plot the diff 15 units below the lowest curve 
+            offset = min( self.subD[r, c][1][0].min(), self.subD[r, c][1][1].min()) - 15
         line, = self.ax[r, c].plot( self.subD[r,c][0][0], diffy*scal + offset, \
                 label = 'diff')
         plt.setp(line, color = 'g')
