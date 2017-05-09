@@ -6,7 +6,7 @@ import itertools
 plt.style.use('../splot/styles/billinge.mplstyle')
 c = [color['color'] for color in list(plt.rcParams['axes.prop_cycle'])]
         
-def Data(data, samplename='none', scan='scan', color= c[0], marker=None, line=None):
+def Data2(data, samplename='none', scan='scan', color= c[0], marker=None, line=None):
     d = {}
     d['samplename'] = samplename
     d['scanname'] = samplename+scan
@@ -20,7 +20,7 @@ def Data(data, samplename='none', scan='scan', color= c[0], marker=None, line=No
         d['line'] = line
     return d
 
-def Data2(data, samplename='none', scan='scan', color= c[0], marker='', line='-'):
+def Data(data, samplename='none', scan='scan', color= c[0], marker='', line='-'):
     # Set the default value for the color, maker and linestyle. 
     # user doesn't need to reset them. 
     d = {}
