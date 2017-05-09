@@ -19,6 +19,18 @@ def Data(data, samplename='none', scan='scan', color= c[0], marker=None, line=No
     if line != None: 
         d['line'] = line
     return d
+
+def Data2(data, samplename='none', scan='scan', color= c[0], marker='', line='-'):
+    # Set the default value for the color, maker and linestyle. 
+    # user doesn't need to reset them. 
+    d = {}
+    d['samplename'] = samplename
+    d['scanname'] = samplename+scan
+    d['data'] = data
+    d['color'] = color
+    d['marker'] = marker
+    d['line'] = line
+    return d
     
 class Splot: 
     def __init__(self, r = 1, c = 1):
