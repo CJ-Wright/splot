@@ -26,6 +26,15 @@ g2 = Data( (r2, Gtrunc2), samplename ='G2', scan = 'Orginal', color = c[2])
 g2calc = Data( (r2, Gcalc2), samplename = 'G2', scan = 'Calc2', color = 'r')
 g2diff = Data( (r2, Gdiff2-8), samplename = 'G2', scan = 'Diff', color = c[0])
 
+#Example of not reseting the marker / color / linestyle, unless the user wants to
+g1 = Data( (r1, Gtrunc1), samplename ='G1', scan = 'Orginal')
+#g1 = Data( (r1, Gtrunc1), samplename ='G1', scan = 'Orginal', color = c[0], marker = '+')
+g1diff = Data( (r1, Gdiff1-8), samplename = 'G1', scan = 'Diff')
+#g1diff = Data( (r1, Gdiff1-8), samplename = 'G1', scan = 'Diff', color = c[0])
+g1calc = Data( (r1, Gcalc1), samplename  = 'G1', scan = 'Calc', color = 'r')
+#g1calc = Data( (r1, Gcalc1), samplename  = 'G1', scan = 'Calc', color = c[4], line='--', marker = "")
+#g1calc = Data( (r1, Gcalc1), samplename  = 'G1', scan = 'Calc', color = c[4])
+
 # plot axis setup: here we have 2 rows x 1 col
 H = Splot(2,1)
 
