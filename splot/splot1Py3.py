@@ -6,38 +6,22 @@ import itertools
 plt.style.use('../splot/styles/billinge.mplstyle')
 c = [color['color'] for color in list(plt.rcParams['axes.prop_cycle'])]
         
-def Data(data, samplename='none', scan='scan', color= c[0], marker=None, line=None):
+def Data(data, samplename='none', scan='scan'):
     d = {}
     d['samplename'] = samplename
     d['scanname'] = samplename+scan
     d['data'] = data
-    d['color'] = color
-    if marker != None: 
-        d['marker'] = None
-    else:
-        d['marker'] = marker   
-    if line != None: 
-        d['line'] = line
+    d['color'] = c[0]
+    d['marker'] = ''
+    d['line'] = '-'
     return d
 
-def Data2(data, samplename='none', scan='scan', color= c[0], marker='', line='-'):
-    # Set the default value for the color, maker and linestyle. 
-    # user doesn't need to reset them. 
-    d = {}
-    d['samplename'] = samplename
-    d['scanname'] = samplename+scan
-    d['data'] = data
-    d['color'] = color
-    d['marker'] = marker
-    d['line'] = line
-    return d
-    
-class Splot: 
+class Splot:
     def __init__(self, r = 1, c = 1):
         self.row, self.col = r, c
         self.fig, self.ax = plt.subplots(self.row,  self.col, sharex='col', sharey='row')
         self.axBig = self.fig.add_subplot(111, frameon=False) 
-        plt.tick_params(labelcolor='none', top='off', bottom='off', left='off', right='off')
+        self.axBig.tick_params(labelcolor='none', top='off', bottom='off', left='off', right='off')
         self.axBig.grid(False)        
         self.legends = ([], [])        
         self.subD = np.empty( (self.row,  self.col), object)        
@@ -61,7 +45,7 @@ class Splot:
             self.legends[0].append(line)
             self.legends[1].append(d['scanname'])
         if diff == True:
-            self.diffC(r, c) # Plot the diff 15 units below 
+            self.diffC(r, c)
         self.ticks()
         self.label()        
         self.title()
@@ -86,7 +70,12 @@ class Splot:
         else:
             diffy = self.subD[r,c][1][0] - self.subD[r, c][1][1]
         if offset == 0: # Defualt: Plot the diff 15 units below the lowest curve 
-            offset = min( self.subD[r, c][1][0].min(), self.subD[r, c][1][1].min()) - 15
+            h = max (self.subD[r, c][1][0].max(), self.subD[r, c][1][1].max()) 
+            l = min (self.subD[r, c][1][0].min(), self.subD[r, c][1][1].min() )
+            amp = h-l
+            # maket he top of the diff Curve 10% of amplitude below lower curve:
+            offset = l - diffy.max() - amp*0.1  
+            
         line, = self.ax[r, c].plot( self.subD[r,c][0][0], diffy*scal + offset, \
                 label = 'diff')
         plt.setp(line, color = 'g')
@@ -126,5 +115,11 @@ class Splot:
             loc='center left', bbox_to_anchor = (1, 0.6), borderaxespad=0, \
             labelspacing= 1., prop={'size':8}, handlelength = 3)
     
+    def setLine(self, d, marker = '', color = '', line = '-'):
+        d['marker'] = marker
+        d['color'] = color
+        d['line'] = line
+        return d
+        
     def save(self, name = "myplot", form = "pdf"):
         return self.fig.savefig(name+"."+form)

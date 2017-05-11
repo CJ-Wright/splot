@@ -2,11 +2,15 @@ import sys
 sys.path.append('../splot')
 from splot1Py3 import *
 
+#get the dataPaths:
+dataPath1 = "../data/examples/f1/80"
+dataPath2 = "../data/examples/f1/10"
+
 #### Load Data Set 1:
-r1 = np.loadtxt("../data/examples/f1/80", skiprows=4, usecols=(0,))
-Gtrunc1 = np.loadtxt("../data/examples/f1/80", skiprows=4, usecols=(1,))
-Gdiff1 = np.loadtxt("../data/examples/f1/80", skiprows=4, usecols=(2,))
-Gcalc1 = np.loadtxt("../data/examples/f1/80", skiprows=4, usecols=(3,))
+r1 = np.loadtxt(dataPath1, skiprows=4, usecols=(0,))
+Gtrunc1 = np.loadtxt(dataPath1, skiprows=4, usecols=(1,))
+Gdiff1 = np.loadtxt(dataPath1, skiprows=4, usecols=(2,))
+Gcalc1 = np.loadtxt(dataPath1, skiprows=4, usecols=(3,))
 
 # Load Data Set 2:
 "../data/examples/f1/10"
@@ -38,11 +42,17 @@ g1calc = Data2( (r1, Gcalc1), samplename  = 'G1', scan = 'Calc', color = 'r')
 # plot axis setup: here we have 2 rows x 1 col
 H = Splot(2,1)
 
+#Test the setLine(), the function for user to customize the linestyle:
+H.setLine(g1, color = c[2], marker = '+', line = '')
+H.setLine(g1calc, color = c[6], line = '--', marker = '')
+H.setLine(g1diff, color = c[8])
+
 # plot data
 H.plotData(g1, 0, 0)    
 H.plotData(g1calc, 0, 0, diff = True)
 #H.plotData(g1diff, 0, 0)
 
+#g2 data uses default set from the group style sheet 
 H.plotData(g2, 1, 0)
 H.plotData(g2calc, 1, 0, diff = True)
 #H.plotData(g2diff, 1, 0)
@@ -52,4 +62,4 @@ H.plotData(g2calc, 1, 0, diff = True)
 #H.label(x = "hello", xunit = 'delta', y = 'world', yunit = 'epsilon', math = 'on')
 
 #Save figure:
-H.save(name = "myfigure", form = "pdf")
+#H.save(name = "myfigure", form = "pdf")
