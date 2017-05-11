@@ -30,8 +30,8 @@ legend.framealpha: .3
 
 xtick.direction: in
 ytick.direction: in
-# xtick.linewidth: 1.5
-# ytick.linewidth: 1.5
+xtick.linewidth: 1.5
+ytick.linewidth: 1.5
 
 image.cmap: viridis
 image.interpolation : none
