@@ -19,6 +19,7 @@ text.hinting_factor : 8
 axes.grid : True
 axes.prop_cycle: cycler('color', ['0B3C5D', '062F4F', '328CC1', 'D9B310', '984B43', 'B82601', '57652A', '76323F', '626E60', 'AB987A', 'C09F80', 'b0b0b0'])
 axes.linewidth: 2
+axes.aspect: 2
 # axes.set_axisbelow: true
 
 grid.color: b2b2b2
@@ -30,8 +31,10 @@ legend.framealpha: .3
 
 xtick.direction: in
 ytick.direction: in
-xtick.linewidth: 1.5
-ytick.linewidth: 1.5
+xtick.major.width    : 1.5    # major tick width in points
+xtick.minor.width    : 1.5 
+ytick.major.width    : 1.5    # major tick width in points
+ytick.minor.width    : 1.5 
 
 image.cmap: viridis
 image.interpolation : none

@@ -16,36 +16,30 @@ Gcalc1 = np.loadtxt(dataPath1, skiprows=4, usecols=(3,))
 "../data/examples/f1/10"
 r2 = np.loadtxt("../data/examples/f1/10", skiprows=4, usecols=(0,))
 Gtrunc2 = np.loadtxt("../data/examples/f1/10", skiprows=4, usecols=(1,))
-Gdiff2 = np.loadtxt("../data/examples/f1/10", skiprows=4, usecols=(2,))
+#Gdiff2 = np.loadtxt("../data/examples/f1/10", skiprows=4, usecols=(2,))
 Gcalc2 = np.loadtxt("../data/examples/f1/10", skiprows=4, usecols=(3,))
 
 #Setup Data for the plot:
 #g1 = Data( (r1, Gtrunc1), samplename ='G1', scan = 'Orginal', color = c[0], marker = '+')
-g1 = Data2( (r1, Gtrunc1), samplename ='G1', scan = 'Orginal', color = c[1])
+g1 = Data( (r1, Gtrunc1), samplename ='G1', scan = 'Orginal', color = c[1], marker = 'o')
 #g1calc = Data( (r1, Gcalc1), samplename  = 'G1', scan = 'Calc', color = c[4], line='--', marker = "")
-g1calc = Data2( (r1, Gcalc1), samplename  = 'G1', scan = 'Calc', color = 'r')
-g1diff = Data2( (r1, Gdiff1-8), samplename = 'G1', scan = 'Diff', color = c[0])
+g1calc = Data( (r1, Gcalc1), samplename  = 'G1', scan = 'Calc', color = 'r')
+#g1diff = Data2( (r1, Gdiff1-8), samplename = 'G1', scan = 'Diff', color = c[0])
 
-g2 = Data2( (r2, Gtrunc2), samplename ='G2', scan = 'Orginal', color = c[2])
-g2calc = Data2( (r2, Gcalc2), samplename = 'G2', scan = 'Calc2', color = 'r')
-g2diff = Data2( (r2, Gdiff2-8), samplename = 'G2', scan = 'Diff', color = c[0])
+g2 = Data( (r2, Gtrunc2), samplename ='G2', scan = 'Orginal', color = c[2], marker = 'o')
+g2calc = Data( (r2, Gcalc2), samplename = 'G2', scan = 'Calc2', color = 'r')
+#g2diff = Data2( (r2, Gdiff2-8), samplename = 'G2', scan = 'Diff', color = c[0])
 
 #Example of not reseting the marker / color / linestyle, unless the user wants to
-g1 = Data2( (r1, Gtrunc1), samplename ='G1', scan = 'Orginal')
-#g1 = Data( (r1, Gtrunc1), samplename ='G1', scan = 'Orginal', color = c[0], marker = '+')
-g1diff = Data2( (r1, Gdiff1-8), samplename = 'G1', scan = 'Diff')
-#g1diff = Data( (r1, Gdiff1-8), samplename = 'G1', scan = 'Diff', color = c[0])
-g1calc = Data2( (r1, Gcalc1), samplename  = 'G1', scan = 'Calc', color = 'r')
-#g1calc = Data( (r1, Gcalc1), samplename  = 'G1', scan = 'Calc', color = c[4], line='--', marker = "")
-#g1calc = Data( (r1, Gcalc1), samplename  = 'G1', scan = 'Calc', color = c[4])
+g3 = Data( (r1, Gtrunc1), samplename ='G3', scan = 'Orginal')
+g1calc = Data( (r1, Gcalc1), samplename  = 'G1', scan = 'Calc', color = 'r')
 
 # plot axis setup: here we have 2 rows x 1 col
 H = Splot(2,1)
 
 #Test the setLine(), the function for user to customize the linestyle:
-H.setLine(g1, color = c[2], marker = '+', line = '')
-H.setLine(g1calc, color = c[6], line = '--', marker = '')
-H.setLine(g1diff, color = c[8])
+#H.setLine(g1, color = c[2], marker = '+', line = '')
+#H.setLine(g1calc, color = c[6], line = '--', marker = '')
 
 # plot data
 H.plotData(g1, 0, 0)    
@@ -63,3 +57,4 @@ H.plotData(g2calc, 1, 0, diff = True)
 
 #Save figure:
 #H.save(name = "myfigure", form = "pdf")
+plt.show()

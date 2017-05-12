@@ -7,17 +7,17 @@ import itertools
 plt.style.use('../splot/styles/billinge.mplstyle')
 c = [color['color'] for color in list(plt.rcParams['axes.prop_cycle'])]
         
-def Data(data, samplename='none', scan='scan', line = '-', color = '', marker = ''):
+def Data(data, samplename='none', scan='scan', line = None, color = None, marker = None):
     d = {}
     d['samplename'] = samplename
     d['scanname'] = samplename+scan
     d['data'] = data
-    if line != '-':
-		d['line'] = line
+    if line:
+        d['line'] = line
     if color:
-		d['color'] = color
+        d['color'] = color
     if marker:
-		d['marker'] = marker
+        d['marker'] = marker
     return d
 
 class Splot:
@@ -132,3 +132,6 @@ class Splot:
         
     def save(self, name = "myplot", form = "pdf"):
         return self.fig.savefig(name+"."+form)
+
+    def show(self, name = "myplot", form = "pdf"):
+        return self.fig.show()
