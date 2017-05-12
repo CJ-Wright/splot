@@ -14,7 +14,7 @@ G2 = np.loadtxt(dataPath2, skiprows=27, usecols=(1,))
 
 #Setup Data for the plot:
 g1 = Data( (r1, G1), samplename ='G1', scan = 'Data')
-g2 = Data( (r2, G2), samplename ='G2', scan = 'Data')
+g2 = Data( (r2, G2), samplename ='G2', scan = 'Data', line = '', marker = 'o')
 
 # plot axis setup: only a sinlge plot
 H = Splot()
