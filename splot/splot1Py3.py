@@ -1,3 +1,4 @@
+#!/Users/Shuyue/mc/envs/py27/bin/python
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator 
@@ -6,14 +7,17 @@ import itertools
 plt.style.use('../splot/styles/billinge.mplstyle')
 c = [color['color'] for color in list(plt.rcParams['axes.prop_cycle'])]
         
-def Data(data, samplename='none', scan='scan'):
+def Data(data, samplename='none', scan='scan', line = '-', color = '', marker = ''):
     d = {}
     d['samplename'] = samplename
     d['scanname'] = samplename+scan
     d['data'] = data
-    d['color'] = c[0]
-    d['marker'] = ''
-    d['line'] = '-'
+    if line != '-':
+		d['line'] = line
+    if color:
+		d['color'] = color
+    if marker:
+		d['marker'] = marker
     return d
 
 class Splot:
@@ -37,9 +41,14 @@ class Splot:
         
     def plotData(self, d, r = 0, c = 0, scal=1, offsetx = 0, offsety = 0, diff = False):
         line, = self.ax[r, c].plot( d['data'][0]+offsetx, d['data'][1]*scal+offsety, \
-                                   marker = d['marker'], label = d['scanname'])
-        plt.setp(line, color = d['color'])
-        plt.setp(line, linestyle = d['line'])
+                                label = d['scanname'])
+        if 'line' in d:
+            plt.setp(line, linestyle = d['line'])
+        if 'color' in d:
+            plt.setp(line, color = d['color'])
+        if 'marker' in d:
+        	plt.setp(line, marker = d['marker'])
+        
         self.addData(d, r, c)        
         if d['scanname'] not in self.legends[1]:
             self.legends[0].append(line)
