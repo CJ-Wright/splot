@@ -15,7 +15,7 @@ Gcalc1 = np.loadtxt(dataPath1, skiprows=4, usecols=(3,))
 # Load Data Set 2:
 r2 = np.loadtxt(dataPath2, skiprows=4, usecols=(0,))
 Gtrunc2 = np.loadtxt(dataPath2, skiprows=4, usecols=(1,))
-#Gdiff2 = np.loadtxt(dataPath2, skiprows=4, usecols=(2,))
+Gdiff2 = np.loadtxt(dataPath2, skiprows=4, usecols=(2,))
 Gcalc2 = np.loadtxt(dataPath2, skiprows=4, usecols=(3,))
 
 #Setup Data for the plot:
@@ -23,11 +23,11 @@ Gcalc2 = np.loadtxt(dataPath2, skiprows=4, usecols=(3,))
 g1 = data( (r1, Gtrunc1), samplename ='G1', scan = 'Orginal', color = c[1], marker = 'o')
 #g1calc = data( (r1, Gcalc1), samplename  = 'G1', scan = 'Calc', color = c[4], line='--', marker = "")
 g1calc = data( (r1, Gcalc1), samplename  = 'G1', scan = 'Calc', color = 'r')
-#g1diff = data2( (r1, Gdiff18), samplename = 'G1', scan = 'Diff', color = c[0])
+g1diff = data( (r1, Gdiff1), samplename = 'G1', scan = 'Diff', color = c[0])
 
 g2 = data( (r2, Gtrunc2), samplename ='G2', scan = 'Orginal', color = c[2], marker = 'o')
 g2calc = data( (r2, Gcalc2), samplename = 'G2', scan = 'Calc2', color = 'r')
-#g2diff = data2( (r2, Gdiff2), samplename = 'G2', scan = 'Diff', color = c[0])
+g2diff = data( (r2, Gdiff2), samplename = 'G2', scan = 'Diff', color = c[0])
 
 #Example of not reseting the marker / color / linestyle, unless the user wants to
 g3 = data( (r1, Gtrunc1), samplename ='G3', scan = 'Orginal')
