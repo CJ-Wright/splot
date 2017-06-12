@@ -67,27 +67,19 @@ class Splot:
         return self.subD
 
     def diffC(self, r=0, c=0, scal=1, offset = None):
-        if len (self.subD[r, c][1]) == 0:
-            print ("subplot", (r,c), "hasn't been load with any data")
-            return
-        elif len (self.subD[r, c][1]) == 1:
-            print ("subplot", (r,c), "needs one more curve to compute the diff Curve")
-            diffy = self.subD[r, c][1][0] - self.subD[r, c][1][0]
-        elif len (self.subD[r, c][1]) > 2:
-            print ("subplot", (r,c), "has more than 2 curves, i'm confused now...")
-            return
-        else:
-            diffy = self.subD[r,c][1][0] - self.subD[r, c][1][1]
-        if offset == None:
+         if len (self.subD[r, c][1]) != 2:
+             raise ValueError( "subplot(%d, %d) must have EXACTLY 2 curves to calcualte the diff Curve, now you have %d curves here." %(r, c, len (self.subD[r, c][1]) ) )
+         diffy = self.subD[r,c][1][0] - self.subD[r, c][1][1]
+         if offset == None:
             h = max (self.subD[r, c][1][0].max(), self.subD[r, c][1][1].max())
             l = min (self.subD[r, c][1][0].min(), self.subD[r, c][1][1].min() )
             amp = h-l
             offset = l - diffy.max() - amp*0.1
-        line, = self.ax[r, c].plot( self.subD[r,c][0][0], diffy*scal + offset, \
+         line, = self.ax[r, c].plot( self.subD[r,c][0][0], diffy*scal + offset, \
                 label = 'diff')
-        plt.setp(line, color = 'g')
-        plt.setp(line, linestyle = '-')
-        if "diff" not in self.legends[1]:
+         plt.setp(line, color = 'g')
+         plt.setp(line, linestyle = '-')
+         if "diff" not in self.legends[1]:
             self.legends[0].append(line)
             self.legends[1].append('diff')
 
@@ -151,3 +143,8 @@ class Splot:
 #            self.ax[i, j].set_aspect (ratio * aspect, adjustable='box-forced') # Cons: may sepearte the subplots
             self.ax[i, j].set_aspect (ratio * aspect) # Cons: may cut off part of the data
 
+    def setXLim(self, col, low, high):
+        return self.ax[0,col].set_xlim([low, high])
+
+    def setYLim(self, row, low, high):
+        return self.ax[row,0].set_ylim([low, high])
