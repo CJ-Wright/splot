@@ -33,23 +33,30 @@ g2diff = data( (r2, Gdiff2), samplename = 'G2', scan = 'Diff', color = c[0])
 g3 = data( (r1, Gtrunc1), samplename ='G3', scan = 'Orginal')
 g1calc = data( (r1, Gcalc1), samplename  = 'G1', scan = 'Calc', color = 'r')
 
-# plot axis setup: here we have 2 rows x 1 col
-H = Splot(2,1)
+# plot axis setup: here we have 2 rows x 2 col to test the x and y range setters
+H = Splot(2,2)
 
 # plot data
 H.plotData(g1, 0, 0)
+#Test the exception handling in diffC(). Now there is only 1 curve in the subplot(0,0)
+#H.diffC(0,0)
 H.plotData(g1calc, 0, 0, diff = True)
+
 #Test the diffC() offset = 0:
-H.diffC(0,0, offset = 0)
+#H.diffC(0,0, offset = 0)
 H.plotData(g1diff, 0, 0, offsety = -6)
+
+#Test the exception handling in diffC(). Now there are 3 curves in the subplot(0,0)
+#H.diffC(0,0)
 
 #g2 data uses default set from the group style sheet
 H.plotData(g2, 1, 0)
-H.plotData(g2calc, 1, 0, diff = True)
+#H.plotData(g2calc, 1, 0, diff = True)
+H.plotData(g2calc, 1, 0, diff = False)
 H.plotData(g2diff, 1, 0, offsety = -6, legend = 'in') # Add legend for all curves
 
-#Adjust the plot to be taller and less wide
-H.figureSize(6, 8)
+#Adjust the figure size to make all lables clear
+H.figureSize(8, 8)
 #H.save(name = "myplot13", form = "pdf")
 
 #Add Title, label
@@ -58,3 +65,7 @@ H.figureSize(6, 8)
 
 #Save figure:
 #H.save(name = "myfigure", form = "pdf")
+
+#Test the range setters: change the x range in the 2nd col
+H.setXLim(1, -4, 4) #change the x range in the 2nd col
+H.setYLim(1, -15, 15) #change the y range in the 2nd row
