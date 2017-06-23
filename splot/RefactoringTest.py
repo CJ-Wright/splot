@@ -10,14 +10,16 @@ plt.style.use('styles/billinge.mplstyle')
 #plt.style.use('../splot/styles/mycopy.mplstyle')
 c = [color['color'] for color in list(rcParams['axes.prop_cycle'])]
 
-def data_dict(data, samplename='none', scan='scan', **pltstyle):
+def data_dict(data, samplename='none', scan='scan', 
+              linestyle=None, color=None, marker=None):
     d = {}
     d['samplename'] = samplename
     d['scanname'] = samplename + scan
     d['data'] = data
-    for key in pltstyle:
-        d[key] = pltstyle[key]
+    d.update([('linestyle', linestyle), ('color', color), ('marker', marker)])
     return d
+    
+    d.update([(1, 2)])
 
 class Splot:
     def __init__(self, r=1, c=1):
@@ -42,17 +44,14 @@ class Splot:
             self.ax = self.ax.reshape((r, c))
         return
 
-    def plot_data(self, d, r=0, c=0, scal=1, offsetx=0, offsety=0,
-                 diff=False, legend=None):
-#        line, = self.ax[r, c].plot( d['data'][0] + offsetx, \
-#                                    d['data'][1]*scal + offsety, \
-#                                    label = d['scanname'])
-                 
-        line, = self.ax[r, c].plot(**d)                                
-        self.add_data(d, r, c)
-        if d['scanname'] not in self.legends[1]:
+    def plot_data(self, data, scanname, r=0, c=0, scal=1, offsetx=0, offsety=0,
+                 diff=False, legend=None, **kwargs):
+        line, = self.ax[r, c].plot(data[0] + offsetx, data[1]*scal + offsety, \
+                                    label = scanname, **kwargs)
+        self.add_data(data, r, c)
+        if scanname not in self.legends[1]:
             self.legends[0].append(line)
-            self.legends[1].append(d['scanname'])
+            self.legends[1].append(scanname)
         if diff == True:
             self.diff_c(r, c)
         self.ticks()
@@ -76,8 +75,8 @@ class Splot:
         subd: ndarray
             updated subd.
         """
-        self.subd[r, c][0].append( d['data'][0] )
-        self.subd[r, c][1].append( d['data'][1] )
+        self.subd[r, c][0].append( d[0] )
+        self.subd[r, c][1].append( d[1] )
         return self.subd
 
     def diff_c(self, r=0, c=0, scal=1, offset=None):
