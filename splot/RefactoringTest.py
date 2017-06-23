@@ -17,10 +17,9 @@ def data_dict(data, samplename='none', scan='scan',
     d['scanname'] = samplename + scan
     d['data'] = data
     d.update([('linestyle', linestyle), ('color', color), ('marker', marker)])
+    
     return d
     
-    d.update([(1, 2)])
-
 class Splot:
     def __init__(self, r=1, c=1):
         """Create a new plotting panel as r rows by c colums."""
