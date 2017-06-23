@@ -4,19 +4,19 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 import itertools
 from pylab import rcParams
-#rcParams['figure.figsize'] = 12, 8
+rcParams['figure.figsize'] = 2, 2
 
 plt.style.use('styles/billinge.mplstyle')
 #plt.style.use('../splot/styles/mycopy.mplstyle')
 c = [color['color'] for color in list(rcParams['axes.prop_cycle'])]
 
-def dataDict(data, samplename='none', scan='scan', **pltstyle):
+def data_dict(data, samplename='none', scan='scan', **pltstyle):
     d = {}
     d['samplename'] = samplename
     d['scanname'] = samplename + scan
     d['data'] = data
     for key in pltstyle:
-        d['style'] = {key: pltstyle[key]}
+        d[key] = pltstyle[key]
     return d
 
 class Splot:
@@ -42,26 +42,26 @@ class Splot:
             self.ax = self.ax.reshape((r, c))
         return
 
-    def plotData(self, d, r=0, c=0, scal=1, offsetx=0, offsety=0,
+    def plot_data(self, d, r=0, c=0, scal=1, offsetx=0, offsety=0,
                  diff=False, legend=None):
-        line, = self.ax[r, c].plot( d['data'][0] + offsetx, \
-                                    d['data'][1]*scal + offsety, \
-                                    label = d['scanname'])                                
-        if 'style' in d:
-            plt.setp(line, **d['style'])
-        self.addData(d, r, c)
+#        line, = self.ax[r, c].plot( d['data'][0] + offsetx, \
+#                                    d['data'][1]*scal + offsety, \
+#                                    label = d['scanname'])
+                 
+        line, = self.ax[r, c].plot(**d)                                
+        self.add_data(d, r, c)
         if d['scanname'] not in self.legends[1]:
             self.legends[0].append(line)
             self.legends[1].append(d['scanname'])
         if diff == True:
-            self.diffC(r, c)
+            self.diff_c(r, c)
         self.ticks()
         self.label()
         self.title()
         self.legend(disp = legend)
         return
 
-    def addData(self, d, r, c):
+    def add_data(self, d, r, c):
         """helper method for plotData() to update subd.
 
         Parameters:
@@ -80,7 +80,7 @@ class Splot:
         self.subd[r, c][1].append( d['data'][1] )
         return self.subd
 
-    def diffC(self, r=0, c=0, scal=1, offset=None):
+    def diff_c(self, r=0, c=0, scal=1, offset=None):
         """Method to plot the difference curve at subplot(r, c),
         also a helper function for plotData()
 
@@ -194,19 +194,19 @@ class Splot:
         """
         if disp:
             if disp == 'out':
-                self.legendOut()
+                self.legend_out()
             if disp == 'in':
-                self.legendIn()
+                self.legend_in()
         return
 
-    def legendOut(self):
+    def legend_out(self):
         """helper method for the legend(), creating an overall legend
         for all lines. The legend is outside of the plotting box."""
         return plt.legend(self.legends[0], self.legends[1], loc='center left',
                    bbox_to_anchor = (1, 0.6), borderaxespad=0, \
                    labelspacing= 1., prop={'size':8}, handlelength = 3)
 
-    def legendIn(self):
+    def legend_in(self):
         """helper method for the legend(),
         creating legends inside of each subplot."""
         for i, j in itertools.product(range(self.row), range(self.col)):
@@ -233,7 +233,7 @@ class Splot:
 
     #### Figure reshape Method 3: Similar to Method 1 or 2.
     ####This changes the overal figure shape. Recommend to use this one :)
-    def figureSize(self, width, height):
+    def figure_size(self, width, height):
         """Change the current figure shape or size"""
         self.fig.set_figwidth(width)
         self.fig.set_figheight(height)
@@ -274,7 +274,7 @@ class Splot:
             # Cons: may cut off part of the data
         return
 
-    def setXLim(self, col, low, high):
+    def set_xlim(self, col, low, high):
         """ a method to manually set the x range in plot.
 
         Parameters:
@@ -288,7 +288,7 @@ class Splot:
         """
         return self.ax[0,col].set_xlim([low, high])
 
-    def setYLim(self, row, low, high):
+    def sety_ylim(self, row, low, high):
         """ a method to manually set the shared y range in the plot.
 
         Parameters:
