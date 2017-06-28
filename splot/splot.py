@@ -1,20 +1,11 @@
 import numpy as np
-import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 import itertools
-from pylab import rcParams
-#### Figure reshape Method 1: but the aspect ratio also depends on the data.
-#### I don't know if this gonna work for general plot
-#rcParams['figure.figsize'] = 12, 8
+plt.style.use('../splot/styles/billinge.mplstyle')
+c = [color['color'] for color in list(plt.rcParams['axes.prop_cycle'])]
 
-#plt.style.use('../splot/styles/billinge.mplstyle')
-#mpl.style.use('../splot/styles/billinge.mplstyle')
-plt.style.use('../splot/styles/mycopy.mplstyle')
-c = [color['color'] for color in list(rcParams['axes.prop_cycle'])]
-
-def data(data, samplename='none', scan='scan',
-         line=None, color=None, marker=None):
+def data_dict(data, samplename='none', scan='scan', **kwargs):
     """Make a data dictionary with keys: data, samplename, scanname,
     and optional keys to specify plotting style: line, color, and marker.
 
@@ -26,29 +17,18 @@ def data(data, samplename='none', scan='scan',
         sample name
     scan: str
         scan name
-    line:str, optional
-        linestyle for matplotlib plotting.
-    color:str, optional
-        color for plotting the data.
-    marker:str, optional
-        markder for plotting the data.
+    **kwargs: dict
+        kwargs for line styling passed to plt.plot
 
-    Returns:
+    Returns: dict
     --------
-        A dictionary with keys 'data', 'samplename', 'scanname'. If any of the
-        optional keys are specified, the dicionary will also include it.
-        Otherwise the data dictionary only has the three keys.
+        A dictionary with keys 'data', 'samplename', 'scanname' (and kwargs)
     """
     d = {}
     d['samplename'] = samplename
     d['scanname'] = samplename + scan
     d['data'] = data
-    if line:
-        d['line'] = line
-    if color:
-        d['color'] = color
-    if marker:
-        d['marker'] = marker
+    d.update(kwargs)
     return d
 
 class Splot:
@@ -66,30 +46,28 @@ class Splot:
     fig: object
         the figure object in matplotlib.
     ax: ndarray
-        an 2D array of same number of rows and cols as in the plotting panel.
-        Each entry contains axes objects in matplotlib to plot each subplot.
+        a 2D array of same number of rows and cols as in the plotting panel.
+        Each entry contains a matplotlib axes to plot each subplot.
     axbig: oject
-        an axes object in matplotlib to make tile and labels for overall plot.
+        a matplotlib axes to make tile and labels for overall plot.
     legends: tuple
         in the form of (lines, labels)
         where the lines is an array of line objects
-        and the labels is an array of the scan names of the data and used
+        and the labels is an array of the scan names of the data that are used
         as the legends in the figure.
     subd: ndarry
-        an 2D array of same number of rows and cols as in the plotting panel.
+        a 2D array of same number of rows and cols as in the plotting panel.
         Each entry is a tuple (x, y) where x is a list of x arrays plotted
         in the subplot and y is a list of the correponding y arrays.
     """
 
     def __init__(self, r=1, c=1):
         """Create a new plotting panel as r rows by c colums."""
+        self.whitelist = ['samplename']
         self.row, self.col = r, c
         self.fig, self.ax = plt.subplots(self.row,  self.col,
                                          sharex='col', sharey='row',)
-                                         #figsize = (8, 6))
-#### Figure reshape Method 2: Similar to Method 1,
-#### but can be specific for each plot.
-#### Cons: Use has to come to here to change the code....
+                                         
         self.fig.tight_layout()
         self.axbig = self.fig.add_subplot(111, frameon = False)
         self.axbig.tick_params(labelcolor ='none',
@@ -107,8 +85,8 @@ class Splot:
             self.ax = self.ax.reshape((r, c))
         return
 
-    def plotData(self, d, r=0, c=0, scal=1, offsetx=0, offsety=0,
-                 diff=False, legend=None):
+    def plot_data(self, data, scanname, r=0, c=0, \
+               scal=1, offsetx=0, offsety=0, diff=False, legend=None, **kwargs):
         """Plot data.
 
         Parameters:
@@ -136,33 +114,30 @@ class Splot:
             When set to "In", each subplot will have its own legend.
             When set to "Out", there is only one overall lengend
             outside of the plot for all lines plotted in the figure.
+        **kwargs: dict
+            kwargs passed to plt.plot
 
         Return:
         --------
         A updated figure.
         """
-        line, = self.ax[r, c].plot( d['data'][0] + offsetx, \
-                                    d['data'][1]*scal + offsety, \
-                                    label = d['scanname'])
-        if 'line' in d:
-            plt.setp(line, linestyle = d['line'])
-        if 'color' in d:
-            plt.setp(line, color = d['color'])
-        if 'marker' in d:
-            plt.setp(line, marker = d['marker'])
-        self.addData(d, r, c)
-        if d['scanname'] not in self.legends[1]:
+        for k in self.whitelist:
+            kwargs.pop(k)
+        line, = self.ax[r, c].plot(data[0] + offsetx, data[1]*scal + offsety, \
+                                    label = scanname, **kwargs)
+        self.add_data(data, r, c)
+        if scanname not in self.legends[1]:
             self.legends[0].append(line)
-            self.legends[1].append(d['scanname'])
+            self.legends[1].append(scanname)
         if diff == True:
-            self.diffC(r, c)
+            self.diff_c(r, c)
         self.ticks()
         self.label()
         self.title()
         self.legend(disp = legend)
         return
 
-    def addData(self, d, r, c):
+    def add_data(self, d, r, c):
         """helper method for plotData() to update subd.
 
         Parameters:
@@ -177,11 +152,11 @@ class Splot:
         subd: ndarray
             updated subd.
         """
-        self.subd[r, c][0].append( d['data'][0] )
-        self.subd[r, c][1].append( d['data'][1] )
+        self.subd[r, c][0].append( d[0] )
+        self.subd[r, c][1].append( d[1] )
         return self.subd
 
-    def diffC(self, r=0, c=0, scal=1, offset=None):
+    def diff_c(self, r=0, c=0, scal=1, offset=None):
         """Method to plot the difference curve at subplot(r, c),
         also a helper function for plotData()
 
@@ -199,6 +174,11 @@ class Splot:
             the amount of offset on y axis when plot the diff Curve.
             Default value is None, where the peak of the diff curve is
             seperated by %10 of the data range below the lower curve.
+            
+        Raise:
+        ------
+        ValueError:
+            when plot the diff curve and subplot doesn't have exactly 2 curves. 
         """
         if len (self.subd[r, c][1]) != 2:
             raise ValueError( "subplot(%d, %d) must have EXACTLY 2 curves \
@@ -222,8 +202,7 @@ class Splot:
 
     def ticks(self):
         """helper method for plotData() to remove the overlapping ticks."""
-#        nbins = len( self.ax[0, 0].get_xticklabels() )
-        nbins = 6                   #??? fix a grid density
+        nbins = 6                   
         for i in range(self.row):
             self.ax[i, 0].yaxis.set_major_locator(\
                         MaxNLocator(nbins, prune='both'))
@@ -295,19 +274,19 @@ class Splot:
         """
         if disp:
             if disp == 'out':
-                self.legendOut()
+                self.legend_out()
             if disp == 'in':
-                self.legendIn()
+                self.legend_in()
         return
 
-    def legendOut(self):
+    def legend_out(self):
         """helper method for the legend(), creating an overall legend
         for all lines. The legend is outside of the plotting box."""
         return plt.legend(self.legends[0], self.legends[1], loc='center left',
                    bbox_to_anchor = (1, 0.6), borderaxespad=0, \
                    labelspacing= 1., prop={'size':8}, handlelength = 3)
 
-    def legendIn(self):
+    def legend_in(self):
         """helper method for the legend(),
         creating legends inside of each subplot."""
         for i, j in itertools.product(range(self.row), range(self.col)):
@@ -332,50 +311,13 @@ class Splot:
         """Show figure in a GUI window."""
         return self.fig.show()
 
-    #### Figure reshape Method 3: Similar to Method 1 or 2.
-    ####This changes the overal figure shape. Recommend to use this one :)
-    def figureSize(self, width, height):
+    def figure_size(self, width, height):
         """Change the current figure shape or size"""
         self.fig.set_figwidth(width)
         self.fig.set_figheight(height)
         return
 
-    #### Figure reshape Method 4: rescale subplot axes ratio.
-    #### Doesn't work well, not recommend....
-    def aspect(self, ratio):
-        """ a method to change the aspect ratio in by a ratio factor.
-
-        Note: this doesn't work well, because axis range in each subplot is
-        rescaled by the same amount. When the ratio is not proper,
-        part of the curve will be cut off in some subplot.
-
-        Parameters:
-        -------------
-        ratio: float
-            a factor to be multipled by the current aspect for all subplots.
-            Example:
-            ratio = 1 to maintain the auto scaled aspect ratio.
-            ratio = 2 to half the auto aspect ratio (double x ranges with
-            centering the data).
-            ratio = 1/2 to double the auto aspect ratio (double y ranges with
-            centering the data).
-
-        Returns:
-        --------
-        An updated figure.
-        """
-        for i, j in itertools.product(range(self.row), range(self.col)):
-            ll, ur = self.ax[i,j].get_position() * self.fig.get_size_inches()
-            width, height = ur - ll
-            axesratio = height / width
-            aspect = axesratio / self.ax[i,j].get_data_ratio()
-#            self.ax[i, j].set_aspect (ratio * aspect, adjustable='box-forced')
-            # Cons: may sepearte the subplots
-            self.ax[i, j].set_aspect (ratio * aspect)
-            # Cons: may cut off part of the data
-        return
-
-    def setXLim(self, col, low, high):
+    def set_xlim(self, col, low, high):
         """ a method to manually set the x range in plot.
 
         Parameters:
@@ -389,7 +331,7 @@ class Splot:
         """
         return self.ax[0,col].set_xlim([low, high])
 
-    def setYLim(self, row, low, high):
+    def sety_ylim(self, row, low, high):
         """ a method to manually set the shared y range in the plot.
 
         Parameters:
