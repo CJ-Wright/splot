@@ -5,8 +5,7 @@ import itertools
 plt.style.use('../splot/styles/billinge.mplstyle')
 c = [color['color'] for color in list(plt.rcParams['axes.prop_cycle'])]
 
-def data_dict(data, samplename='none', scan='scan', 
-              linestyle=None, color=None, marker=None):
+def data_dict(data, samplename='none', scan='scan', **kwargs):
     """Make a data dictionary with keys: data, samplename, scanname,
     and optional keys to specify plotting style: line, color, and marker.
 
@@ -18,29 +17,18 @@ def data_dict(data, samplename='none', scan='scan',
         sample name
     scan: str
         scan name
-    line:str, optional
-        linestyle for matplotlib plotting.
-    color:str, optional
-        color for plotting the data.
-    marker:str, optional
-        markder for plotting the data.
+    **kwargs: dict
+        kwargs for line styling passed to plt.plot
 
-    Returns:
+    Returns: dict
     --------
-        A dictionary with keys 'data', 'samplename', 'scanname'. If any of the
-        optional keys are specified, the dicionary will also include it.
-        Otherwise the data dictionary only has the three keys.
+        A dictionary with keys 'data', 'samplename', 'scanname' (and kwargs)
     """
     d = {}
     d['samplename'] = samplename
     d['scanname'] = samplename + scan
     d['data'] = data
-    if linestyle:
-        d['linestyle'] = linestyle
-    if color:
-        d['color'] = color
-    if marker:
-        d['marker'] = marker
+    d.update(kwargs)
     return d
 
 class Splot:
@@ -126,6 +114,8 @@ class Splot:
             When set to "In", each subplot will have its own legend.
             When set to "Out", there is only one overall lengend
             outside of the plot for all lines plotted in the figure.
+        **kwargs: dict
+            kwargs passed to plt.plot
 
         Return:
         --------
@@ -212,8 +202,7 @@ class Splot:
 
     def ticks(self):
         """helper method for plotData() to remove the overlapping ticks."""
-#        nbins = len( self.ax[0, 0].get_xticklabels() )
-        nbins = 6                   #??? fix a grid density
+        nbins = 6                   
         for i in range(self.row):
             self.ax[i, 0].yaxis.set_major_locator(\
                         MaxNLocator(nbins, prune='both'))
@@ -322,8 +311,6 @@ class Splot:
         """Show figure in a GUI window."""
         return self.fig.show()
 
-    #### Figure reshape Method 3: Similar to Method 1 or 2.
-    ####This changes the overal figure shape. Recommend to use this one :)
     def figure_size(self, width, height):
         """Change the current figure shape or size"""
         self.fig.set_figwidth(width)
