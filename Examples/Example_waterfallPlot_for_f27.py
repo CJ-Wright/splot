@@ -7,7 +7,7 @@ H = Splot()
 
 r = [0, 20, 50, 80, 100]
 for i in r:
-    dataPath = "../data/examples/f27/"+str(i)
+    dataPath = "examples_data/f27/"+str(i)
     r = np.loadtxt(dataPath, skiprows = 4, usecols=(0,))
     gtrunc = np.loadtxt(dataPath, skiprows = 4, usecols=(1,))
     
