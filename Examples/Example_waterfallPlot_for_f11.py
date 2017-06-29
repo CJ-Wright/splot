@@ -8,7 +8,7 @@ H = Splot()
 
 for i in range (11):
     #load data:
-    dataPath = "../data/examples/f11/"+str(i*10)
+    dataPath = "examples_data/f11/"+str(i*10)
     r = np.loadtxt(dataPath, skiprows = 4, usecols=(0,))
     gtrunc = np.loadtxt(dataPath, skiprows = 4, usecols=(1,))
 
