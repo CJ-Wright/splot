@@ -3,8 +3,8 @@ sys.path.append('../splot')
 from splot import *
 
 #get the dataPaths:
-dataPath1 = "../data/examples/f1/80"
-dataPath2 = "../data/examples/f1/10"
+dataPath1 = "examples_data/f1/80"
+dataPath2 = "examples_data/f1/10"
 
 #### Load Data Set 1:
 r1 = np.loadtxt(dataPath1, skiprows=4, usecols=(0,))
