@@ -3,11 +3,19 @@ sys.path.append('../splot')
 from splot import *
 
 #### Load Data Set 1:
+<<<<<<< HEAD:Examples/Example_2_CalcDiff.py
+dataPath1 = "data/2/sub_20161114-235343_Ag0_ct_180_2c77c1_0001.gr"
+r1 = np.loadtxt(dataPath1, skiprows=27, usecols=(0,))
+G1 = np.loadtxt(dataPath1, skiprows=27, usecols=(1,))
+# Load Data Set 2:
+dataPath2 = "data/2/sub_20161115-002440_Ag100_ct_180_c73701_0001.gr"    
+=======
 dataPath1 = "examples_data/f2/sub_20161114-235343_Ag0_ct_180_2c77c1_0001.gr"
 r1 = np.loadtxt(dataPath1, skiprows=27, usecols=(0,))
 G1 = np.loadtxt(dataPath1, skiprows=27, usecols=(1,))
 # Load Data Set 2:
 dataPath2 = "examples_data/f2/sub_20161115-002440_Ag100_ct_180_c73701_0001.gr"    
+>>>>>>> e80024fa672ce0bb001e6cfb0d14b0eea776614b:Examples/Example_MeasCalcDiff_for_f2.py
 r2 = np.loadtxt(dataPath2, skiprows=27, usecols=(0,))
 G2 = np.loadtxt(dataPath2, skiprows=27, usecols=(1,))
 
