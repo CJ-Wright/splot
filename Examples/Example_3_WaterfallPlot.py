@@ -8,11 +8,7 @@ H = Splot()
 
 for i in range (11):
     #load data:
-<<<<<<< HEAD:Examples/Example_3_WaterfallPlot.py
     dataPath = "data/3/"+str(i*10)
-=======
-    dataPath = "examples_data/f11/"+str(i*10)
->>>>>>> e80024fa672ce0bb001e6cfb0d14b0eea776614b:Examples/Example_waterfallPlot_for_f11.py
     r = np.loadtxt(dataPath, skiprows = 4, usecols=(0,))
     gtrunc = np.loadtxt(dataPath, skiprows = 4, usecols=(1,))
 
