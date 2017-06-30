@@ -194,3 +194,22 @@ TSWLatexianTemp*
 # KBibTeX
 *~[0-9]*
 *.pyc
+
+# SohIgnore
+
+*~
+.ipynb_checkpoints
+*.pyc
+*.tiff
+*.tif
+*.aux
+*.bbl
+*.blg
+*.lof
+*.log
+*.lot
+*.out
+*.synctex
+*.synctex.gz
+*.toc
+*.gitkeep
