@@ -1,0 +1,21 @@
+This code was developed in the Billinge Group at Columbia University.
+The main developer was
+
+    Shuyue Xue
+
+with significant inputs from
+
+    Simon J. L. Billinge
+    Chris J. Wright 
+
+Please see the header of each source file for a detailed list of
+contributors.  This is an open-source project and we hope and expect
+that the list of contributors will expand with time.  Many thanks to
+all current and future contributors!
+
+For more information email sb2896@columbia.edu
+
+Acknowledgments:
+
+We are truly grateful to all the people who have contributed, in all
+different ways:
