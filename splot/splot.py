@@ -1,3 +1,16 @@
+##############################################################################
+#
+# simonplot(splot)       by Billinge Group
+#                        Simon J. L. Billinge sb2896@columbia.edu
+#                        (c) 2017 trustees of Columbia University in the City of
+#                            New York.
+#                        All rights reserved
+#
+# File coded by:    Shuyue Xue
+#
+# See AUTHORS.txt for a list of people who contributed.
+# See LICENSE.txt for license information.
+##############################################################################
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
