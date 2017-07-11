@@ -13,9 +13,10 @@ Billinge Group members
 2.
   * 
 If you have conda environment alreayd installed:
-  source activate your conda environment name  
-Else:  
-  create a conda environment with deps conda create -n splot python=3 billingegroup -c conda-forge 
+  * source activate your conda environment name  
+
+  * Else:  
+  * create a conda environment with deps conda create -n splot python=3 billingegroup -c conda-forge 
 
 3.cd to the directory where you git cloned the 17sx_plotting  
 4.Install splot by "python setup.py develop"  
