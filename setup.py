@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup_kwargs = {
     'name': 'splot',
-    'version': 'v0.1',
+    'version': '0.0.1',
     'description': 'BG standard figure Tools',
     'url': 'http://gitlab.thebillingegroup.com/analysis/17sx_plotting',
     'classifiers': [
@@ -11,12 +11,11 @@ setup_kwargs = {
         'Programming Language :: Python :: 3',
         ],
     'zip_safe': False,
-    'packages': ['splot', 'examples'],
+    'packages': ['splot'],
     'package_dir': {
         'splot': 'splot',
-        'examples': 'examples',
         },
-    'data_files': [('examples/data', ['*.'])],
+    'data_files': [('splot/styles', ['*.mplstyle'])],
     }
     
 if __name__ == '__main__':
