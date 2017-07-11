@@ -9,7 +9,7 @@ release data: 7/13/2017
 Billinge Group members
 
 # Installation
-1.Git clone git@gitlab.thebillingegroup.com:analysis/17sx_plotting.git
+1.Git clone git@gitlab.thebillingegroup.com:analysis/17sx_plotting.git \n
 2.If you have conda environment alreayd installed: 
     source activate your conda environment name
   else:
