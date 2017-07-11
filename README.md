@@ -2,8 +2,9 @@
 This pacakge contains plottgin tools for quick generating Billinge Group standard figures.  
 Splot makes 2D plots of data on compact multi-panel.  
 It's designed for easy plotting measured, calculated data, and difference curve.  
-Platform: Linux Mac  
-release data: 7/13/2017  
+
+# Platform: Linux Mac  
+# release data: 7/13/2017  
 
 # Intended Audience
 Billinge Group members
