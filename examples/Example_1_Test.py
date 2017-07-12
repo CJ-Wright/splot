@@ -1,10 +1,5 @@
-from splot import data_dict, Splot
+from splot.splot import data_dict, Splot, c
 import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib.ticker import MaxNLocator
-import itertools
-plt.style.use('../splot/styles/billinge.mplstyle')
-c = [color['color'] for color in list(plt.rcParams['axes.prop_cycle'])]
 
 #get the dataPaths:
 dataPath1 = "data/1/80"
