@@ -1,4 +1,4 @@
-from splot.splot import data_dict, Splot, c
+from splot import data_dict, Splot, c
 import numpy as np
 
 #get the dataPaths:
@@ -46,3 +46,5 @@ H.plot_data(**g2diff, r=1, c=0, offsety = -6, legend = 'in')
 
 #change the figure aspect ratio:
 H.figure_size(6, 8)
+
+H.show()
