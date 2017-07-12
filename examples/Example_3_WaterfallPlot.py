@@ -1,6 +1,5 @@
-import sys  
-sys.path.append('../splot')
-from splot import *
+from splot.splot import data_dict, Splot, c
+import numpy as np
 
 # plot axis setup: a single water fall plot
 H = Splot()
@@ -21,4 +20,5 @@ for i in range (11):
 
 #H.title("G(r) Plot", math = "off")
 #H.save(name = "myfigure", form = "pdf")
-plt.show()
+# See the figure
+H.show()
