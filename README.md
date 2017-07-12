@@ -15,7 +15,7 @@ Billinge Group members
 1.`git clone git@gitlab.thebillingegroup.com:analysis/17sx_plotting.git`  
 2.
 * If you have conda environment alreayd installed: 
-  * `source activate <your conda environment name>   
+  * `source activate <your conda environment name>`   
 * Else: 
   * Create a conda environment with deps `conda create -n splot python=3 billingegroup -c conda-forge`  
   * activate the environment you created with `source activate <env_name>`
