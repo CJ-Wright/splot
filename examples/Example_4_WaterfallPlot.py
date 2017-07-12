@@ -1,6 +1,5 @@
-import sys  
-sys.path.append('../splot')
-from splot import *
+from splot.splot import data_dict, Splot, c
+import numpy as np
 
 # plot axis setup: a single water fall plot
 H = Splot()
@@ -28,4 +27,5 @@ for i in r:
     H.plot_data(**Gcalc, offsety = i, legend = 'out')
 
 # Resize the figure aspec ratio
-H.figure_size(6, 8)
+H.figure_size(6, 8) 
+H.show()
