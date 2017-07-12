@@ -322,7 +322,7 @@ class Splot:
 
     def show(self):
         """Show figure in a GUI window."""
-        return self.fig.show()
+        return plt.show()
 
     def figure_size(self, width, height):
         """Change the current figure shape or size"""
