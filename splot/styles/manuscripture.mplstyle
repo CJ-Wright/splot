@@ -32,9 +32,9 @@ legend.framealpha: .3
 xtick.direction: in
 ytick.direction: in
 xtick.major.width    : 1.5    # major tick width in points
-xtick.minor.width    : 1.5 
+xtick.minor.width    : 1.5
 ytick.major.width    : 1.5    # major tick width in points
-ytick.minor.width    : 1.5 
+ytick.minor.width    : 1.5
 
 image.cmap: viridis
 image.interpolation : none
@@ -43,7 +43,7 @@ font.family: sans-serif
 font.sans-serif: Helvetica
 mathtext.fontset: stixsans
 font.size: 18
-figure.figsize: 8, 6
+figure.figsize: 8, 4.94
 figure.dpi:240
 #text.usetex: true
 

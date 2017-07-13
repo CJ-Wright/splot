@@ -10,13 +10,13 @@
 #
 # See AUTHORS.txt for a list of people who contributed.
 # See LICENSE.txt for license information.
+#
 ##############################################################################
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 import itertools
-plt.style.use('../splot/styles/billinge.mplstyle')
-c = [color['color'] for color in list(plt.rcParams['axes.prop_cycle'])]
+plt.style.use('../splot/styles/manuscripture.mplstyle')
 
 def data_dict(data, samplename='none', scan='scan', **kwargs):
     """Make a data dictionary with keys: data, samplename, scanname,
@@ -144,6 +144,8 @@ class Splot:
             self.legends[1].append(scanname)
         if diff == True:
             self.diff_c(r, c)
+        self.ax[r, c].tick_params(top ='on', bottom ='on', \
+                                  left ='on', right ='on')
         self.ticks()
         self.label()
         self.title()
@@ -219,11 +221,16 @@ class Splot:
         for i in range(self.row):
             self.ax[i, 0].yaxis.set_major_locator(\
                         MaxNLocator(nbins, prune='both'))
+            self.ax[i, 0].tick_params(top='on', bottom='on', \
+                        left='on', right='on')
             self.ax[i, 0].minorticks_on()
+
         for i in range(self.col):
             self.ax[-1, i].xaxis.set_major_locator(
                             MaxNLocator(nbins, prune='both'))
             self.ax[-1, i].minorticks_on()
+            self.ax[i, 0].tick_params(top='on', bottom='on', \
+                        left='on', right='on')
         return
 
     def label(self, x='r', xunit='AA', y='G', yunit='AA^{-2}', math=True):
