@@ -2,7 +2,7 @@ from splot.splot import data_dict, Splot
 import numpy as np
 
 # plot axis setup: a single water fall plot
-H = Splot()
+myplot = Splot()
 
 for i in range (11):
     #load data: only the measured data will be plotted in this example,
@@ -12,13 +12,13 @@ for i in range (11):
     gtrunc = np.loadtxt(dataPath, skiprows = 4, usecols=(1,))
 
     #Set up data to be plot
-    G = data_dict((r, gtrunc),  samplename = "Measured", scan = "_"+str(i*10))
+    G = data_dict((r, gtrunc),  samplename = "Ag", scan = str(i*10))
     
     #plot data: y offset is 0.5 unit below to the above curve 
-    H.plot_data(**G, scal=1, offsety = i*-0.5, legend  = 'in')
+    myplot.plot_data(**G, scal=1, offsety = i*-1, legend  = 'in')
 
 #H.title("G(r) Plot", math = "off")
 # See the figure
-H.show()
+#myplot.show()
 # Save figure
-H.save(name = "Example_3_WaterfallMeas", form = "pdf")
+myplot.save(name = "Example_3_WaterfallMeas", form = "pdf")

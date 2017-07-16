@@ -1,4 +1,4 @@
-from splot.splot import data_dict, Splot
+from splot.splot import data_dict, Splot, c
 import numpy as np
 
 # Load Data Set 1:
@@ -12,20 +12,20 @@ r2 = np.loadtxt(dataPath2, skiprows=27, usecols=(0,))
 G2 = np.loadtxt(dataPath2, skiprows=27, usecols=(1,))
 
 #Setup Data for the plot:
-data_set1 = data_dict( (r1, G1), samplename ='Ag0', scan = 'Temp180',
+data_set1 = data_dict( (r1, G1), samplename ='Ag', scan = '0',
                        color = 'C4')
-data_set2 = data_dict( (r2, G2), samplename ='Ag100', scan = 'Temp180',
-                       color = 'C8')
+data_set2 = data_dict( (r2, G2), samplename ='Ag', scan = '100',
+                       color = 'C6')
 
 # plot axis setup: a sinlge plot
-H = Splot()
+myplot = Splot()
 
 # plot data, add legend in last plotting statemen
-H.plot_data(**data_set1, offsety = 30)
-H.plot_data(**data_set2, legend = 'in')
+myplot.plot_data(**data_set1)
+myplot.plot_data(**data_set2, diff = True, legend ='in')
 
 # Show the figure
-H.show()
+#myplot.show()
 
 # Save figure
-H.save(name = 'Example_2_MeasCompare', form ='pdf')
+myplot.save(name = 'Example_2_MeasCompare', form ='pdf')

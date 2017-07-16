@@ -36,6 +36,11 @@ xtick.minor.width    : 1.5
 ytick.major.width    : 1.5    # major tick width in points
 ytick.minor.width    : 1.5
 
+xtick.top            : True
+ytick.right          : True
+xtick.minor.visible  : True  
+ytick.minor.visible  : True
+
 image.cmap: viridis
 image.interpolation : none
 
