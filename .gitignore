@@ -110,3 +110,5 @@ ENV/
 
 # MacIgnore
 .DS_Store
+# Rever
+rever/
