@@ -213,3 +213,6 @@ TSWLatexianTemp*
 *.synctex.gz
 *.toc
 *.gitkeep
+
+# MacIgnore
+.DS_Store
